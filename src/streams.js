@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const { pipeline, Transform } = require('stream');
 const { caesarCipher } = require('./caesar-cipher');
 
@@ -7,9 +8,32 @@ module.exports.Streams = ({ action, shift, input, output }) => {
   let lastArgPipeline = process.stdout;
 
   if (input !== undefined) {
+    if (path.extname(input) !== '.txt') {
+      process.stderr.write(
+        `wrong file extension: ${path.extname(input)} to .txt` + '\n'
+      );
+      return;
+    }
+
+    if (fs.existsSync(input) === false) {
+      process.stderr.write('No such file exists' + '\n');
+      return;
+    }
+
     firstArgPipeline = fs.createReadStream(input, 'utf8');
   }
   if (output !== undefined) {
+    if (path.extname(output) !== '.txt') {
+      process.stderr.write(
+        `wrong file extension: ${path.extname(output)} to .txt` + '\n'
+      );
+      return;
+    }
+    if (fs.existsSync(output) === false) {
+      process.stderr.write('No such file exists' + '\n');
+      return;
+    }
+
     lastArgPipeline = fs.createWriteStream(output, {
       flags: 'a',
       encoding: 'utf8'
@@ -22,13 +46,9 @@ module.exports.Streams = ({ action, shift, input, output }) => {
     }
 
     _transform(chunk, encoding, callback) {
-      // console.log(chunk)
-      // const buf = Buffer.from(`${chunk}`, 'utf8');
-      // console.log('buf', buf)
-      // console.log('encoding',encoding)
       const resultString = `${chunk.toString()}`;
       const resultFun = caesarCipher(resultString, shift, action);
-      callback(null, resultFun);
+      callback(null, `${resultFun}\n`);
     }
   }
   const transformStream = new CustomTransformStream(
@@ -38,9 +58,9 @@ module.exports.Streams = ({ action, shift, input, output }) => {
 
   pipeline(firstArgPipeline, transformStream, lastArgPipeline, err => {
     if (err) {
-      console.error('Pipeline failed.', err);
+      console.error('failed.', err);
     } else {
-      console.log('Pipeline succeeded.');
+      console.log(action, ' succeeded.');
     }
   });
 };

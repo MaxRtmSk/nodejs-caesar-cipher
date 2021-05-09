@@ -16,7 +16,6 @@ const checkShift = Number.isInteger(Number(options.shift));
 const checkActon = options.action === 'encode' || options.action === 'decode';
 
 if (checkShift && checkActon) {
-  console.log(options);
   Streams(options);
 } else {
   if (options.shift === undefined) {

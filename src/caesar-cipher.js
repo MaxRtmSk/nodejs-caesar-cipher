@@ -68,7 +68,6 @@ function moveLetter(indexLetter, shift, action) {
   }
 
   if (action === 'decode' && shift < 0) {
-    console.log('if2');
     for (let i = 0; i > shift; i--) {
       result++;
       if (result === Alphabet.length) {
@@ -107,7 +106,7 @@ function assignLetter(letter, shift, action) {
   }
 
   if (indexBigLetter !== -1) {
-    return Alphabet[moveLetter(indexBigLetter, shift, action)];
+    return BigAlphabet[moveLetter(indexBigLetter, shift, action)];
   }
 
   return letter;
