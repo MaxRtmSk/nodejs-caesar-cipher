@@ -10,7 +10,10 @@ module.exports.Streams = ({ action, shift, input, output }) => {
     firstArgPipeline = fs.createReadStream(input, 'utf8');
   }
   if (output !== undefined) {
-    lastArgPipeline = fs.createWriteStream(output, { flags: 'a' });
+    lastArgPipeline = fs.createWriteStream(output, {
+      flags: 'a',
+      encoding: 'utf8'
+    });
   }
 
   class CustomTransformStream extends Transform {
@@ -19,12 +22,19 @@ module.exports.Streams = ({ action, shift, input, output }) => {
     }
 
     _transform(chunk, encoding, callback) {
+      // console.log(chunk)
+      // const buf = Buffer.from(`${chunk}`, 'utf8');
+      // console.log('buf', buf)
+      // console.log('encoding',encoding)
       const resultString = `${chunk.toString()}`;
       const resultFun = caesarCipher(resultString, shift, action);
       callback(null, resultFun);
     }
   }
-  const transformStream = new CustomTransformStream({ highWaterMark: 2 });
+  const transformStream = new CustomTransformStream(
+    { highWaterMark: 4 },
+    'utf8'
+  );
 
   pipeline(firstArgPipeline, transformStream, lastArgPipeline, err => {
     if (err) {
