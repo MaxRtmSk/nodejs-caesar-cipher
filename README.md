@@ -1,25 +1,32 @@
 # Caesar cipher
 
+Program for encrypting and decrypting text using the Caesar cipher.
+
 ## Downloading
 
 ```
 git clone {repository URL}
 ```
 
-
 ## Running Caesar cipher
 
+From command line in folder src run  
+
 ```
-npm start
+  node my-caesar-cli (with arguments)
 ```
+
 ## Arguments that can be attached
 
 -s, --shift: a shift
+
 -i, --input: an input file
+
 -o, --output: an output file
--a, --action: an action encode/decode
+
+-a, --action: an action encode/decodee
   
-Usage example:
+## Usage example:
 
   -a (--action) is encode
 >$ node my-caesar-cli -a encode -s 7 -i "./input.txt" -o "./output.txt"
