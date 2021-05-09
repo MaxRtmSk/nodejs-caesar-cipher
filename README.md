@@ -10,6 +10,11 @@ git clone {repository URL}
 
 ## Running Caesar cipher
 
+You can сreate two files somewhere with the txt extension
+  
+  the first file will take text
+  the third file will save decode or encode text
+
 From command line in folder src run  
 
 ```
@@ -18,13 +23,13 @@ From command line in folder src run
 
 ## Arguments that can be attached
 
--s, --shift: a shift
+-s, --shift: (necessarily) a shift
 
--i, --input: an input file
+-i, --input: specify the path if you created it
 
--o, --output: an output file
+-o, --output: specify the path if you created it
 
--a, --action: an action encode/decodee
+-a, --action: (necessarily) an action encode/decodee
   
 ## Usage example:
 
