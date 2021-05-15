@@ -1,4 +1,5 @@
 const { Command } = require('commander');
+const { validateRequireArguments, validatePath } = require('./validation');
 
 const program = new Command();
 
@@ -9,4 +10,11 @@ program
   .option('-a, --action <type>', 'an action encode/decode')
   .parse(process.argv);
 
-// const options = program.opts();
+const options = program.opts();
+
+validateRequireArguments(options.shift, options.action);
+
+validatePath(options.input);
+validatePath(options.output);
+
+module.exports = options;

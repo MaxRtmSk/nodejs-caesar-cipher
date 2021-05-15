@@ -1,17 +1,14 @@
-// const fs = require('fs');
-// const path = require('path');
-// const { input } = require('./command');
+const fs = require('fs');
+const path = require('path');
 
-const read = process.stdin;
+function read(input) {
+  let stream = process.stdin;
 
-// if (input) {
-//   const existFile = fs.existsSync(path.join(__dirname, input));
-//   if (existFile) {
-//     read = fs.createReadStream(path.join(__dirname, input), 'utf8');
-//   } else {
-//     process.stderr.write(`Error: not exist file ${input}`);
-//     process.exit();
-//   }
-// }
+  if (input) {
+    stream = fs.createReadStream(path.join(__dirname, input), 'utf8');
+  }
+
+  return stream;
+}
 
 module.exports = read;
