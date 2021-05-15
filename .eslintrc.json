@@ -34,6 +34,7 @@
     "rules": {
         "no-debugger": 1,
         // Possible errors
+        "no-process-exit": "off",
         "comma-dangle": [
             2,
             "never"
