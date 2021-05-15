@@ -1,6 +1,8 @@
+const { pipeline } = require('stream');
+const { read } = require('./streams/read');
+const { transform } = require('./streams/transform');
+const { write } = require('./streams/write');
 const { Command } = require('commander');
-const { Streams } = require('./streams');
-
 const program = new Command();
 
 program
@@ -16,7 +18,13 @@ const checkShift = Number.isInteger(Number(options.shift));
 const checkActon = options.action === 'encode' || options.action === 'decode';
 
 if (checkShift && checkActon) {
-  Streams(options);
+  pipeline(read, transform, write, err => {
+    if (err) {
+      console.error('failed.', err);
+    } else {
+      // console.log(action, ' succeeded.');
+    }
+  });
 } else {
   if (options.shift === undefined) {
     return console.log('you did not enter shift');
