@@ -1,9 +1,6 @@
-# RS School REST service
+# Caesar cipher
 
-## Prerequisites
-
-- Git - [Download & Install Git](https://git-scm.com/downloads).
-- Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
+Program for encrypting and decrypting text using the Caesar cipher.
 
 ## Downloading
 
@@ -11,62 +8,53 @@
 git clone {repository URL}
 ```
 
-## Installing NPM modules
+## Running Caesar cipher
+
+You can сreate two files somewhere with the txt extension
+  
+  the first file will take text
+  the third file will save decode or encode text
+
+From command line in folder src run  
 
 ```
-npm install
+  node my-caesar-cli (with arguments)
 ```
 
-## Running application
+## Arguments that can be attached
 
-```
-npm start
-```
+-s, --shift: (necessarily) a shift
 
-After starting the app on port (4000 as default) you can open
-in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
-For more information about OpenAPI/Swagger please visit https://swagger.io/.
+-i, --input: specify the path if you created it
 
-## Testing
+-o, --output: specify the path if you created it
 
-After application running open new terminal and enter:
+-a, --action: (necessarily) an action encode/decodee
+  
+## Usage example:
 
-To run all tests without authorization
+1.  -a (--action) is encode
+>$ node my-caesar-cli -a encode -s 7 -i "./input.txt" -o "./output.txt"
+  input.txt This is secret. Message about "_" symbol!
 
-```
-npm test
-```
+output.txt Aopz pz zljyla. Tlzzhnl hivba "_" zftivs!
 
-To run only one of all test suites (users, boards or tasks)
+>$ node my-caesar-cli --action encode --shift 7 --input plain.txt --output encoded.txt
+plain.txt This is secret. Message about "_" symbol!
 
-```
-npm test <suite name>
-```
+encoded.txt Aopz pz zljyla. Tlzzhnl hivba "_" zftivs!
 
-To run all test with authorization
+2. -a (--action) is decode
+Decoding encoded initial string with the same -s(--shift) number produces the initial string.
+>$ node my-caesar-cli --action decode --shift 7 --input encoded.txt --output plain.txt
+encoded.txt Aopz pz zljyla. Tlzzhnl hivba "_" zftivs!
 
-```
-npm run test:auth
-```
+plain.txt This is secret. Message about "_" symbol!
 
-To run only specific test suite with authorization (users, boards or tasks)
+3. (Optional) Negative shift handling
+>$ node my-caesar-cli --action encode --shift -1 --input plain.txt --output encoded.txt
+plain.txt This is secret. Message about "_" symbol!
 
-```
-npm run test:auth <suite name>
-```
+encoded.txt Sghr hr rdbqds. Ldrrzfd zants "_" rxlank!
 
-## Development
 
-If you're using VSCode, you can get a better developer experience from integration with [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) extensions.
-
-### Auto-fix and format
-
-```
-npm run lint
-```
-
-### Debugging in VSCode
-
-Press <kbd>F5</kbd> to debug.
-
-For more information, visit: https://code.visualstudio.com/docs/editor/debugging
